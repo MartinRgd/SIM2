@@ -11,6 +11,13 @@ void Noeud :: print()
     cout << "[" << Li << "," << Co << ",Val="<< Val << "]" << endl;
 }
 
+void Noeud :: print() const
+// version const fonction qui affiche le triplet
+{
+    cout << "[" << Li << "," << Co << ",Val="<< Val << "]" << endl;
+}
+
+
 
 /* Fonctions d'acces */
 

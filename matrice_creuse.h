@@ -22,6 +22,7 @@ class Matrice_creuse
         /* CONSTRUCTEUR ET PRINT*/
         Matrice_creuse(const int & l= 0, const int & c=0);
         void print();
+        void print() const;
 
         /* FONCTIONS D'ACCES CONST*/
         int Li() const;

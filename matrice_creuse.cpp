@@ -27,6 +27,20 @@ void Matrice_creuse :: print()
 }
 
 
+/* Version const de print()*/
+void Matrice_creuse :: print() const
+// Affiche la liste chainee
+{
+    vector<Noeud> :: const_iterator it;
+    const vector<Noeud> & Chaine = (*this).get_Chaine();
+
+    for(it=Chaine.begin(); it !=Chaine.end(); it++)
+    {
+        it->print();
+    }
+}
+
+
 /* FONCTIONS D'ACCES CONST */
 
 int Matrice_creuse :: Li() const

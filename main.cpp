@@ -59,7 +59,7 @@ int main()
     }
     {
 
-        // Si A est la matrices diagonale(1,2) on doit avoir x = [2 1]
+        // Si A est la matrice diagonale(1,2) on doit avoir x = [2 1]
         cout << "Test Diagonale" << endl;
         Matrice_creuse A(2,2);
         Noeud N1(1,1,1.);
@@ -76,7 +76,7 @@ int main()
     }
     {
 
-        // Si A est la matrices diagonale(1,2) on doit avoir x = [2 1]
+        // Si A est la matrice diagonale(1,2) on doit avoir x = [2 1]
         // NE FONCTIONNNE PAS
         cout << "Test Diagonale strictement dominante" << endl;
         Matrice_creuse A(2,2);

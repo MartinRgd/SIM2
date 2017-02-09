@@ -57,7 +57,10 @@ vector<double> grad_conj(const Matrice_creuse & A, const vector<double> & B)
     // Matrice de préconditionnement
     vector<double> C;
     C = diag(A); // On prend la diagonale de A
-
+    cout << "C" << endl;
+    print(C);
+    cout << "A" << endl;
+    A.print();
 
     // Nouveau second membre preconditionné
     vector<double> b = B/C;
@@ -89,8 +92,14 @@ vector<double> grad_conj(const Matrice_creuse & A, const vector<double> & B)
     {
         // Calcul de z =K*d où K est la direction de descente
         Cd0 = d0/C;
+        //out<< "Cd0" << endl;
+        //print(Cd0);
         Cz = A*Cd0;
+        //cout << "Cz" << endl;
+        //print(Cz);
         z = Cz/C;
+        //cout << "z" << endl;
+        //print(z);
 
         alpha = norm0/ps(d0,z);
         u0 = u0 + alpha*d0;

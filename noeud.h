@@ -26,6 +26,7 @@ class Noeud
         double val() const;
 
         void print();         // fonction qui affiche le triplet
+        void print() const;         // version const
 
 };
 
