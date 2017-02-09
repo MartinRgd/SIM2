@@ -83,13 +83,15 @@ int main()
         Noeud N1(1,1,1.);
         Noeud N2(2,2,2.);
         Noeud N3(1,2,0.5);
+        Noeud N4(2,1,0.5);
         A.Chaine.push_back(N1);
         A.Chaine.push_back(N2);
         A.Chaine.push_back(N3);
+        A.Chaine.push_back(N4);
 
         vector<double> b(2,2.);
         vector<double> x=grad_conj(A,b);
-        //print(x);
+        print(x);
 
 
         cout << "Fin Test du gradient conjugué" << endl;

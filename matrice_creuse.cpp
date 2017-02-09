@@ -5,7 +5,7 @@
 
 // CONSTRUCTEUR //
 
-Matrice_creuse :: Matrice_creuse(const int &l, const int & c)
+Matrice_creuse :: Matrice_creuse(const int & l, const int & c)
 // Constructeur avec dimensions
 // IN : -l, un entier representant le nombre de lignes
 //      -c, nbre de colonnes
@@ -27,9 +27,9 @@ void Matrice_creuse :: print()
 }
 
 
-/* Version const de print()*/
+/* Version const */
 void Matrice_creuse :: print() const
-// Affiche la liste chainee
+// Affiche la liste chainee en version const
 {
     vector<Noeud> :: const_iterator it;
     const vector<Noeud> & Chaine = (*this).get_Chaine();

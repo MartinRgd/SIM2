@@ -47,6 +47,10 @@ vector<double> diag(Matrice_creuse M)
 /// version AVEC préconditionnement
 
 vector<double> grad_conj(const Matrice_creuse & A, const vector<double> & B)
+// Effectue l'algorithme du gradient avec un critère d'arrêt de 10^(-6)
+// IN :  - A une matrice creuse SYMETRIQUE
+//       - B un vecteur de second membre
+// OUT : - x un vecteur tel que Ax = B
 {
     /// Paramètres
     double epsilon = 1E-6; // critère d'arrêt
@@ -92,14 +96,13 @@ vector<double> grad_conj(const Matrice_creuse & A, const vector<double> & B)
     {
         // Calcul de z =K*d où K est la direction de descente
         Cd0 = d0/C;
-        //out<< "Cd0" << endl;
+        //cout<< "Cd0" << endl;
         //print(Cd0);
         Cz = A*Cd0;
         //cout << "Cz" << endl;
         //print(Cz);
         z = Cz/C;
-        //cout << "z" << endl;
-        //print(z);
+
 
         alpha = norm0/ps(d0,z);
         u0 = u0 + alpha*d0;
