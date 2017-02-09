@@ -1,5 +1,5 @@
 #ifndef TRIANGLES_H
-#def TRIANGLES_H
+#define TRIANGLES_H
 
 #include<iostream>
 #include<fstream>
@@ -13,17 +13,21 @@ using namespace std;
 
 /// CLASSE POINT ///
 class point
-
-{public:
+// classe qui définit u point avec son abscisse et son ordonnée
+{
+    public:
     double x; // abscisse
     double y; // ordonnée
     int num;  // numérotation du point dans le triangle
     point(int num0=0,double x0=0,double y0=0){num=num0;x=x0;y=y0;}; // constructeur
+    point (const point &U){x=U.x; U.y;}; // constructeur par copie
 };
 
+/* OPERATEURS SUR LES POINTS */
+
 ostream& operator<<(ostream &,const point &); // surcharge de cout
-
-
+point operator + (const point&U,const point&V); // addition
+point operator * (double a,const point &U); // multiplication
 
 /// CLASSE TRIANGLE ///
 class triangle
