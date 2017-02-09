@@ -1,3 +1,6 @@
+#ifndef TRIANGLES_H
+#def TRIANGLES_H
+
 #include<iostream>
 #include<fstream>
 #include<string>
@@ -46,3 +49,4 @@ class triangle
     point & operator()(int i){return sommets[i-1];}; // une fonction d'acces au ieme sommet
 };
 
+#endif // TRIANGLES_H
