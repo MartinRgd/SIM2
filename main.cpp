@@ -1,102 +1,186 @@
 #include<iostream>
+#include<fstream>
+#include<string>
+#include<stdlib.h>
+#include<sstream>
 #include<vector>
-
-#include"noeud.h"
-#include "matrice_creuse.h"
-#include "grad_conj.h"
-
+#include<list>
 using namespace std;
+
+
+class point
+{public:
+    double x;
+    double y;
+    int num;
+    point(int num0=0,double x0=0,double y0=0){num=num0;x=x0;y=y0;};
+};
+
+ostream& operator<<(ostream &,const point &);
+
+class triangle
+{public:
+    vector<point> sommets;
+    vector<point> milieux;
+    triangle(const point &P1,const point &P2,const point &P3) //constructeur prenant 3 points
+    {
+        sommets.push_back(P1);
+        sommets.push_back(P2);
+        sommets.push_back(P3);
+    };
+
+    triangle(const point &P1,const point &P2,const point &P3,const point &P4,const point &P5,const point &P6) //constructeur prenant 3 points
+    {
+        sommets.push_back(P1);
+        sommets.push_back(P2);
+        sommets.push_back(P3);
+        milieux.push_back(P4);
+        milieux.push_back(P5);
+        milieux.push_back(P6);
+    };
+    point & operator()(int i){return sommets[i-1];}; // une fonction d'acces au ieme sommet
+};
+
+class maillage
+{public:
+    list<triangle> trianglesP1;
+    list<triangle> trianglesP2;
+};
+
+ostream & operator<<(ostream & out, const point & P)
+{
+    out<<P.num<<P.x<<P.y;
+    return out;
+}
+
+
 
 int main()
 {
-    /*Tests sur les fonctions de bases des classes Noeud et Matrice_creuse */
+    maillage maillage_lu;
+
+   ifstream in("untitled2.msh");    // open the file
+    //ifstream in;
+    //in.open("untitled2.msh");
+    //int i=0;
+    if (!in.is_open())
+        cout << "File not open" << endl;  // assurer que le file est ouvri correct
+
+    string str;
+
+  //Read the header $MeshFormat
+    getline(in,str);
+    if (str != "$MeshFormat")
+        cout << "Reading problem 1" << endl;
+
+ // Read the version numbers
+    getline(in,str);
+    stringstream stream(str);
+
+    string vNumber1; int vNumber2;int vNumber3;
+    stream >> vNumber1;
+    if(vNumber1 != "2.2")
+        cout  << "Reading problem 2" << endl;
+    stream >> vNumber2;
+    if(vNumber2 != 0)
+        cout << "Reading problem 3" << endl;
+    stream >> vNumber3;
+    if(vNumber3 != 8)
+        cout << "Reading problem 4" << endl;
+// Read the header $EndMeshFormat
+    getline(in,str);
+    if (str != "$EndMeshFormat")
+        cout << "Reading problem 5" << endl;
+// Read the header $Nodes
+    getline(in,str);
+    if (str != "$Nodes")
+        cout << "Reading problem 6" << endl;
+//Read te number of nodes
+      getline(in,str);
+     int nodes_num=atoi(str.c_str());
+//Loop over the nodes
+     int No;
+     double x[nodes_num-1],y[nodes_num-1],z[nodes_num-1];
+     for(int k=0;k<=nodes_num-1;k++)
     {
-        cout << "Test des fonctions de base" << endl;
-        Noeud N1(1,1,2.);
-        Noeud N2(2,2,3.);
-        Noeud N3(1,2,2.);
-
-
-        Matrice_creuse M(3,3);
-        M.Chaine.push_back(N1);
-        M.Chaine.push_back(N2);
-        M.Chaine.push_back(N3);
-
-        M.print();
-        cout << "Fin print" << endl;
-
-        vector<double> V(3);
-        vector<double> R(3);
-        V.at(0) = 1.;
-        V.at(1) = 1.;
-        V.at(2) = 1.;
-        R = M*V;
-        print(R);
-
-
-        cout << " Test de la fonction diag" << endl;
-        vector<double> Vec(3);
-        Vec = diag(M);
-        print(Vec);
-
-        cout << "Fin Test des fonctions de base" << endl;
+        getline(in,str);
+        stringstream stream(str);
+        stream>>No>>x[k]>>y[k]>>z[k];        //x(k),y(k),z(k) sont les coordon��es de point(k+1)
+        stream.clear();
     }
-    /* Tests sur le gradient conjugué préconditionné */
+//Read the header $EndNodes
+     getline(in,str);
+     if (str != "$EndNodes")
+        cout << "Reading problem 7" << endl;
+//Read the  header $Elements
+     getline(in,str);
+     if (str != "$Elements")
+        cout << "Reading problem 8 " << endl;
+//Read te number of elements
+     getline(in,str);
+     int elements_num=atoi(str.c_str());
+
+//Loop over the nodes
+
+     int type,rien; int p[5];
+    for(int k=0;k<=elements_num-1;k++)
     {
-        cout << "Test du gradient conjugué" << endl;
-        // Si A est la matrice identité on doit avoir x = b
-        cout << "Test identité" << endl;
-        Matrice_creuse A(2,2);
-        Noeud N1(1,1,1.);
-        Noeud N2(2,2,1.);
-        A.Chaine.push_back(N1);
-        A.Chaine.push_back(N2);
+        getline(in,str);
+        stringstream stream(str);
+        stream>>No;
+        stream>>type;
+        if(type==15)
+        {
+            cout<<"element"<<No<<" est un point"<<endl;
+        }
+         else if(type==8)
+        {
+            cout<<"element"<<No<<" est une arret en P2"<<endl;
+        }
+        else if(type==9)
+        {
+            cout<<"element"<<No<<" est un triangle en P2"<<endl;
 
-        vector<double> b(2,2.);
-        vector<double> x=grad_conj(A,b);
-        print(x);
+            stream>>rien>>rien>>rien>>p[0]>>p[1]>>p[2]>>p[3]>>p[4]>>p[5];
 
+            point P1(p[0],x[p[0]-1],y[p[0]-1]);
+            point P2(p[1],x[p[1]-1],y[p[1]-1]);
+            point P3(p[2],x[p[2]-1],y[p[2]-1]);
+            point P4(p[3],x[p[3]-1],y[p[3]-1]);
+            point P5(p[4],x[p[4]-1],y[p[4]-1]);
+            point P6(p[5],x[p[5]-1],y[p[5]-1]);
+            maillage_lu.trianglesP2.push_back(triangle(P1,P2,P3,P4,P5,P6));
+
+        }
+        else if(type==1)
+        {
+            cout<<"element"<<No<<" est un triangle en P1"<<endl;
+        }
+        else if(type==2)
+        {
+            cout<<"element"<<No<<" est un arret en P1"<<endl;
+
+            stream>>rien>>rien>>rien>>p[0]>>p[1]>>p[2];
+
+            point P1(p[0],x[p[0]-1],y[p[0]-1]);
+            point P2(p[1],x[p[1]-1],y[p[1]-1]);
+            point P3(p[2],x[p[2]-1],y[p[2]-1]);
+            maillage_lu.trianglesP1.push_back(triangle(P1,P2,P3));
+        }
+        stream.clear();
     }
-    {
 
-        // Si A est la matrice diagonale(1,2) on doit avoir x = [2 1]
-        cout << "Test Diagonale" << endl;
-        Matrice_creuse A(2,2);
-        Noeud N1(1,1,1.);
-        Noeud N2(2,2,2.);
-        A.Chaine.push_back(N1);
-        A.Chaine.push_back(N2);
-
-        vector<double> b(2,2.);
-        vector<double> x=grad_conj(A,b);
-        print(x);
+//Read te number of elements $EndElements
+     getline(in,str);
+     if (str == "$EndElements")
+        cout << "Stop" << endl;
 
 
+list<triangle>::iterator it;
+int i=1;
+for(it = maillage_lu.trianglesP2.begin();it!=maillage_lu.trianglesP2.end();it++,i++)
+{
+    cout<<it->p1 <<endl;
+}
 
-    }
-    {
-
-        // Si A est la matrice diagonale(1,2) on doit avoir x = [2 1]
-        // NE FONCTIONNNE PAS
-        cout << "Test Diagonale strictement dominante" << endl;
-        Matrice_creuse A(2,2);
-        Noeud N1(1,1,1.);
-        Noeud N2(2,2,2.);
-        Noeud N3(1,2,0.5);
-        Noeud N4(2,1,0.5);
-        A.Chaine.push_back(N1);
-        A.Chaine.push_back(N2);
-        A.Chaine.push_back(N3);
-        A.Chaine.push_back(N4);
-
-        vector<double> b(2,2.);
-        vector<double> x=grad_conj(A,b);
-        print(x);
-
-
-        cout << "Fin Test du gradient conjugué" << endl;
-
-
-    }
-        return 0;
 }
