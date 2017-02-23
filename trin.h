@@ -8,71 +8,43 @@
 #include <cmath>
 #include"noeud.h"
 #include"matrice_creuse.h"
+#include"triangles.h"
+#include"trin.h"
 
 using namespace std;
 
-class Point
+class Triinte: public triangle
 {
     public:
-    double x;double y;
-    Point(double a=0,double b=0)
-    :x(a),y(b)
-    {}
-    Point(const Point &U)
+    //double a;double b;
+    Matrice_creuse M;
+    Matrice_creuse R;
+    double bl;
+
+    Triinte()
+    :triangle()
     {
-        x=U.x;y=U.y;
+        bl=(sommets[1].x-sommets[0].x)*(sommets[2].y-sommets[0].y)-(sommets[2].x-sommets[0].x)*(sommets[1].y-sommets[0].y);
+
     }
 
-};
-
-Point operator + (const Point&U,const Point&V);
-Point operator * (double a,const Point &U);
-ostream & operator <<(ostream & out,const Point &U);
-
-class Triangle
-{
-    public:
-    vector<Point> sommet;
-    Triangle()
+    Triinte(const point &U, const point &V,const point &W)
+    :triangle(U,V,W),M(3,3),R(3,3)
     {
-        sommet.push_back(Point(0,0));
-        sommet.push_back(Point(0,1));
-        sommet.push_back(Point(1,0));
+        bl=(sommets[1].x-sommets[0].x)*(sommets[2].y-sommets[0].y)-(sommets[2].x-sommets[0].x)*(sommets[1].y-sommets[0].y);
+
     }
-    Triangle(const Point &U,const Point &V,const Point &W)
+
+    /*Triinte(const triangle &TL)
     {
-        sommet.push_back(U);
-        sommet.push_back(V);
-        sommet.push_back(W);
+        sommets[1].x=TL.sommets[1];
     }
-    Point operator()(int i) const
-    {return sommet[i-1];}
-
-};
-
-ostream & operator <<(ostream & out,const Triangle &U);
-
-
-class Triinte: public Triangle
-{
-    public:
-    double a;double b;
-    double bl=(sommet[1].x-sommet[0].x)*(sommet[2].y-sommet[0].y)-(sommet[2].x-sommet[0].x)*(sommet[1].y-sommet[0].y);
-
-
-
-    Triinte(const Point &U, const Point &V,const Point &W,double p=1.,double q=1.)
-    :Triangle(U,V,W)
-    {
-        a=p;b=q;
-    }
-    /*Triinte(const Triangle &T)
-    {
-        sommet=T.sommet;
-    }*/
-    Triinte(const Triinte &M);
-    Matrice_creuse masse () const;
-    Matrice_creuse rigid () const;
+    */
+    //Triinte(const Triinte &M);
+    void masse (double a=1.);
+    void mprint();
+    void rigid (double b=1.);
+    void rprint ();
 };
 
 

@@ -8,17 +8,23 @@
 #include <cmath>
 #include"noeud.h"
 #include"matrice_creuse.h"
+#include"triangles.h"
 #include"trin.h"
 
 
 using namespace std;
 
-class Assemblage: public matrice_creuse
+class Assemblage
 {
     public:
-    list<Triinte> trii;
-    void trii_init(const list<Triangle> & TL);
-    void assembler();
+    int Nbp;
+    //list<Triinte> trii;
+    Matrice_creuse MM;
+    Matrice_creuse RR;
+    Assemblage(int n);
+    //void trii_init(const list<Triangle> & TL);//initialise
+    void assembler(const list<triangle> & TL);//assembler quand non initialise
+    //void assembler();//assembler quand deja initialise
 
 };
 

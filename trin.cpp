@@ -6,10 +6,11 @@
 #include"noeud.h"
 #include"matrice_creuse.h"
 #include"trin.h"
+#include"triangles.h"
 
 using namespace std;
 
-Point operator + (const Point&U,const Point&V)
+/*Point operator + (const Point&U,const Point&V)
 {
     Point W(U);
     W.x+=V.x;
@@ -36,15 +37,15 @@ ostream & operator <<(ostream & out,const Triangle &U)
     out<<U(1)<<" "<<U(2)<<" "<<U(3);
     return out;
 }
-
-Triinte::Triinte(const Triinte &M)
+*/
+/*Triinte::Triinte(const Triinte &M)
 {
 
     sommet=M.sommet;
 }
-Matrice_creuse Triinte::masse () const
+*/
+void Triinte::masse (double a)
 {
-    Matrice_creuse M(3,3);
     Noeud n1(0,0,a*bl/12);
     Noeud n2(0,1,a*bl/24);
     Noeud n3(0,2,a*bl/24);
@@ -57,14 +58,10 @@ Matrice_creuse Triinte::masse () const
     M.Chaine.push_back(n1);M.Chaine.push_back(n2);M.Chaine.push_back(n3);
     M.Chaine.push_back(n4);M.Chaine.push_back(n5);M.Chaine.push_back(n6);
     M.Chaine.push_back(n7);M.Chaine.push_back(n8);M.Chaine.push_back(n9);
-    M.print();
-    return M;
 }
 
-Matrice_creuse Triinte::rigid () const
+void Triinte::rigid (double b)
 {
-    Matrice_creuse R(3,3);
-
     vector<double> deltaom1(2);
     deltaom1.at(0)=-1.;deltaom1.at(1)=-1.;
     vector<double> deltaom2(2);
@@ -75,8 +72,8 @@ Matrice_creuse Triinte::rigid () const
     //Noeud r1(0,0,1.);
     //R.Chaine.push_back(r1);
     Matrice_creuse BLTI(2,2);
-    Noeud b1(0,0,(sommet[2].y-sommet[0].y)/bl);Noeud b2(0,1,(sommet[0].x-sommet[2].x)/bl);
-    Noeud b3(1,0,(sommet[0].y-sommet[1].y)/bl);Noeud b4(1,1,(sommet[1].x-sommet[0].x)/bl);
+    Noeud b1(0,0,(sommets[2].y-sommets[0].y)/bl);Noeud b2(0,1,(sommets[0].x-sommets[2].x)/bl);
+    Noeud b3(1,0,(sommets[0].y-sommets[1].y)/bl);Noeud b4(1,1,(sommets[1].x-sommets[0].x)/bl);
     BLTI.Chaine.push_back(b1);BLTI.Chaine.push_back(b2);
     BLTI.Chaine.push_back(b3);BLTI.Chaine.push_back(b4);
     //ps(deltaom1,deltaom2);
@@ -95,7 +92,14 @@ Matrice_creuse Triinte::rigid () const
     R.Chaine.push_back(r1);R.Chaine.push_back(r2);R.Chaine.push_back(r3);
     R.Chaine.push_back(r4);R.Chaine.push_back(r5);R.Chaine.push_back(r6);
     R.Chaine.push_back(r7);R.Chaine.push_back(r8);R.Chaine.push_back(r9);
-    R.print();
-    return R;
 }
 
+void Triinte::mprint ()
+{
+    M.print();
+}
+
+void Triinte::rprint ()
+{
+    R.print();
+}
