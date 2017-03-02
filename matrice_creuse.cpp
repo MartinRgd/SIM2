@@ -15,6 +15,10 @@ Matrice_creuse :: Matrice_creuse(const int & l, const int & c)
     nbCo = c;
 }
 
+Matrice_creuse :: Matrice_creuse( const Matrice_creuse & M) : nbLi(M.Li()), nbCo(M.Co()), Chaine(M.get_Chaine())
+//constructeur par copie
+{}
+
 void Matrice_creuse :: print()
 // Affiche la liste chainee
 {

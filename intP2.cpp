@@ -153,17 +153,19 @@ Matrice_creuse Cl(const vector<double> & coord)
 //               [x1,y1,x2,y2,x3,y3]
 //OUT : - une matrice creuse constante
 {
-    vector < vector <double> > MI = invdFl2(coord); // inverse de dFl
-    Noeud N1(1,1, (MI.at(1)).at(1)*(MI.at(1)).at(1) + (MI.at(1)).at(2)*(MI.at(1)).at(2) );
-    Noeud N2(1,2, (MI.at(1)).at(1)*(MI.at(2)).at(1) + (MI.at(1)).at(2)*(MI.at(2)).at(2) );
-    Noeud N3(2,1, (MI.at(1)).at(1)*(MI.at(2)).at(1) + (MI.at(1)).at(2)*(MI.at(2)).at(2) );
-    Noeud N4(2,2, (MI.at(2)).at(1)*(MI.at(2)).at(1) + (MI.at(2)).at(2)*(MI.at(2)).at(2) );
+    vector < vector <double> > MI ;
+    MI = invdFl2(coord); // inverse de dFl
 
-    Matrice_creuse C;
-    C.Chaine.push_back(N1);
-    C.Chaine.push_back(N2);
-    C.Chaine.push_back(N3);
-    C.Chaine.push_back(N4);
+    Noeud N1(1,1, (MI.at(0)).at(0)*(MI.at(0)).at(0) + (MI.at(0)).at(1)*(MI.at(0)).at(1) );
+    Noeud N2(1,2, (MI.at(0)).at(0)*(MI.at(1)).at(0) + (MI.at(0)).at(1)*(MI.at(1)).at(1) );
+    Noeud N3(2,1, (MI.at(0)).at(0)*(MI.at(1)).at(0) + (MI.at(1)).at(1)*(MI.at(1)).at(1) );
+    Noeud N4(2,2, (MI.at(1)).at(0)*(MI.at(1)).at(0) + (MI.at(1)).at(1)*(MI.at(1)).at(1) );
+
+    Matrice_creuse C(2,2);
+    C.get_Chaine().push_back(N1);
+    C.get_Chaine().push_back(N2);
+    C.get_Chaine().push_back(N3);
+    C.get_Chaine().push_back(N4);
 
     return C;
 
@@ -274,13 +276,16 @@ double integrale_p2_rigidite(const vector<double> & coord, int i, int j)
     // FORMULE DE QUADRATURE
     Matrice_creuse C = Cl(coord);
     double J = jacobian_triangle(coord);
+    vector<double> grad_i;
+    vector<double> grad_j;
+
 
     double inte =0;
 
     for(int k=0; k<7; k++)
     {
-        vector<double> grad_i = grad2(i,absc.at(k),ord.at(k));
-        vector<double> grad_j = grad2(j,absc.at(k),ord.at(k));
+        grad_i = grad2(i,absc.at(k),ord.at(k));
+        grad_j = grad2(j,absc.at(k),ord.at(k));
         inte += ps(C*grad_i,grad_j)*abs(J)*w.at(k);
     }
 

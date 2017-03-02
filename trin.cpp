@@ -7,7 +7,6 @@
 #include"matrice_creuse.h"
 #include"trin.h"
 #include"triangles.h"
-#include"intP2.h"
 
 using namespace std;
 
@@ -18,7 +17,6 @@ using namespace std;
     W.y+=V.y;
     return W;
 }
-
 Point operator * (double a,const Point &U)
 {
     Point W(U);
@@ -26,13 +24,11 @@ Point operator * (double a,const Point &U)
     W.y*=a;
     return W;
 }
-
 ostream & operator <<(ostream & out,const Point &U)
 {
     out<<"("<<U.x<<","<<U.y<<")";
     return out;
 }
-
 ostream & operator <<(ostream & out,const Triangle &U)
 {
     out<<U(1)<<" "<<U(2)<<" "<<U(3);
@@ -41,7 +37,6 @@ ostream & operator <<(ostream & out,const Triangle &U)
 */
 /*Triinte::Triinte(const Triinte &M)
 {
-
     sommet=M.sommet;
 }
 */
