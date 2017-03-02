@@ -68,7 +68,7 @@ void Triinte::rigid (double b)
     deltaom2.at(0)=1.;deltaom2.at(1)=0.;
     vector<double> deltaom3(2);
     deltaom3.at(0)=0.;deltaom3.at(1)=1.;
-    cout<<"1 ok"<<endl;
+    //cout<<"1 ok"<<endl;
     //Noeud r1(0,0,1.);
     //R.Chaine.push_back(r1);
     Matrice_creuse BLTI(2,2);
