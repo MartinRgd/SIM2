@@ -110,6 +110,7 @@ double IT(triangle const& T, vector<double> const& Uh1, vector<double> const& Uh
 //      - h, le parametre du maillage
 //OUT : - IT, l'indicateur IT du triangle T donné
 {
-
+   cout << "MODIFIER LA FONCTION IT AVEC LA MATRICE DE K" << endl;
+   return 0.5;
 
 }
