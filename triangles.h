@@ -35,9 +35,10 @@ point operator * (double a,const point &U); // multiplication
 /// CLASSE TRIANGLE ///
 class triangle
 {public:
+    int type;
     vector<point> sommets; // vecteur contenant les sommets
     vector<point> milieux; // vecteur contenant les milieux
-    triangle()
+    /*triangle()
     {
         point P1(0,0.,0.);
         point P2(0,1.,0.);
@@ -45,12 +46,13 @@ class triangle
         sommets.push_back(P1);
         sommets.push_back(P2);
         sommets.push_back(P3);
-    };
+    };*/
     triangle(const point &P1,const point &P2,const point &P3) //constructeur prenant 3 points
     {
         sommets.push_back(P1);
         sommets.push_back(P2);
         sommets.push_back(P3);
+        type=1;
     };
 
     triangle(const point &P1,const point &P2,const point &P3,const point &P4,const point &P5,const point &P6) //constructeur prenant 3 points
@@ -61,6 +63,23 @@ class triangle
         milieux.push_back(P4);
         milieux.push_back(P5);
         milieux.push_back(P6);
+        type=2;
+    };
+
+    triangle(const triangle &T)
+    {
+        sommets.push_back(T.sommets[0]);
+        sommets.push_back(T.sommets[1]);
+        sommets.push_back(T.sommets[2]);
+        type=1;
+        if((T.milieux.size())!=0)
+        {
+            milieux.push_back(T.milieux[0]);
+            milieux.push_back(T.milieux[1]);
+            milieux.push_back(T.milieux[2]);
+            type=2;
+        }
+
     };
     point & operator()(int i){return sommets[i-1];}; // une fonction d'acces au ieme sommet
 };
