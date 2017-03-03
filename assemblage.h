@@ -10,6 +10,7 @@
 #include"matrice_creuse.h"
 #include"triangles.h"
 #include"trin.h"
+#include"intP2.h"
 
 
 using namespace std;
@@ -24,6 +25,7 @@ class Assemblage
     Assemblage(int n);
     //void trii_init(const list<Triangle> & TL);//initialise
     void assembler(const list<triangle> & TL);//assembler quand non initialise
+    void assemblertrin(const list<Triinte> & TI);//assembler les triintes
     //void assembler();//assembler quand deja initialise
 
 };

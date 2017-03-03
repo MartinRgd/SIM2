@@ -10,7 +10,7 @@
 #include"matrice_creuse.h"
 #include"triangles.h"
 #include"trin.h"
-#include"intP2.h"
+#include "intP2.h"
 
 using namespace std;
 
@@ -18,37 +18,29 @@ class Triinte: public triangle
 {
     public:
     //double a;double b;
-    Matrice_creuse M;
-    Matrice_creuse R;
-    double bl;
     vector<double> coord;
+    Matrice_creuse M; // Matrice de masse
+    Matrice_creuse R; //Matrice de rigidite
+    double bl;        // stocke Bl le jacobien
 
-    /*Triinte()
-    :triangle()
+    Triinte()
+    :triangle()   //createur par defaut
     {
-        switch(type)
-          {
-             case 1:
-             bl=(sommets[1].x-sommets[0].x)*(sommets[2].y-sommets[0].y)-(sommets[2].x-sommets[0].x)*(sommets[1].y-sommets[0].y);
-             break;
+        bl=(sommets[1].x-sommets[0].x)*(sommets[2].y-sommets[0].y)-(sommets[2].x-sommets[0].x)*(sommets[1].y-sommets[0].y);
 
-             case 2:
-             bl=jacobian_triangle(sommets);
-             break;
+    }
 
-          };
-    }*/
-
-    Triinte(const point &P1, const point &P2,const point &P3)
-    :triangle(P1,P2,P3),M(3,3),R(3,3)
+    Triinte(const point &U, const point &V,const point &W)
+    :triangle(U,V,W),M(3,3),R(3,3)   // createur a partir de 3 points
     {
-             bl=(sommets[1].x-sommets[0].x)*(sommets[2].y-sommets[0].y)-(sommets[2].x-sommets[0].x)*(sommets[1].y-sommets[0].y);
+        bl=(sommets[1].x-sommets[0].x)*(sommets[2].y-sommets[0].y)-(sommets[2].x-sommets[0].x)*(sommets[1].y-sommets[0].y);
 
     }
 
     Triinte(const point &P1,const point &P2,const point &P3,const point &P4,const point &P5,const point &P6)
     :triangle(P1,P2,P3,P4,P5,P6),M(6,6),R(6,6)
     {
+
              for(int i=0;i<3;i++)
               {
                  coord.push_back(sommets[i].x);
@@ -57,6 +49,8 @@ class Triinte: public triangle
              bl=jacobian_triangle(coord);
 
     }
+
+
     Triinte(const triangle &T)
     :triangle(T),M(type*3,type*3),R(type*3,type*3)
     {
@@ -87,6 +81,7 @@ class Triinte: public triangle
     void rigid (double b=1.);
     void rprint ();
 };
+
 
 
 #endif // TRIN_H_INCLUDED
