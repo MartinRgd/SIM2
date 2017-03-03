@@ -47,7 +47,7 @@ ostream & operator <<(ostream & out,const Triangle &U)
 */
 void Triinte::masse (double a)
 {
-    if(type=1)
+    if(type==1)
     {
         Noeud n1(0,0,a*bl/12);
         Noeud n2(0,1,a*bl/24);
@@ -76,7 +76,7 @@ void Triinte::masse (double a)
 
 void Triinte::rigid (double b)
 {
-    if(type=1)
+    if(type==1)
     {
         vector<double> deltaom1(2);
         deltaom1.at(0)=-1.;deltaom1.at(1)=-1.;
